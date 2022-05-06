@@ -1,0 +1,6 @@
+# Ignore Extras
+Extras/
+
+# Results
+!out_tree_path_N2.mp4
+!out_wheel_N2.avi

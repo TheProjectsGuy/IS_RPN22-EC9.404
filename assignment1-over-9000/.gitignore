@@ -1,0 +1,14 @@
+# Ignore VSCode directory
+.vscode/
+# Ignore tests folder contents
+tests/*
+
+# Ignore outputs
+out/
+wheels_out/
+out_path/
+*.zip
+*.mp4
+*.avi
+*.npy
+*.pkl

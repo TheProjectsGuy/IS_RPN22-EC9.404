@@ -1,0 +1,11 @@
+# Ignore pycache
+__pycache__
+*.pyc
+
+# Ignore test files
+test*.py
+
+# Ignore output
+out*
+ada/
+log_report
