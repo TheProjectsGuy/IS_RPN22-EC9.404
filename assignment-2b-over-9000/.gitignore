@@ -1,0 +1,12 @@
+# Ignore VSCode
+.vscode/
+# Ignore python compiled files
+__pycache__/
+*.pyc
+# Ignore output
+out/
+# Ignore all video files
+*.avi
+# Ignore the tests folder
+tests/
+*_test.py

@@ -1,0 +1,31 @@
+% !TeX root = main.tex
+
+\section{Rule-based Constant Time Scaling}
+
+\subsection{Independent variable time-scaling}
+\label{app:holo-rb-cts-code}
+
+The code below will do rule-based constant time scaling for an independent variable (you could assume the robot to be holonomic here).
+
+\lstinputlisting[language=python]{./../test_ts.py}
+
+\subsection{Non-Holonomic Robot}
+\label{app:nh-rb-cts-code}
+
+The code below will do rule-based constant time scaling for a non-holonomic robot (where $\theta$ is modelled using $\dot{x}$ and $\dot{y}$).
+
+\lstinputlisting[language=python]{./../rb_cts.py}
+
+\section{Collision Cone Constant Time Scaling}
+\label{app:nh-cc-cts-code}
+
+The below will do collision cone constant time scaling for a non-holonomic robot (where $\theta$ is modelled using the robot's velocities).
+
+\lstinputlisting[language=python]{./../cc_cts.py}
+
+\section{Rule-based Linear Time Scaling}
+\label{app:nh-rb-lts-code}
+
+The code below applies linear time scaling using hardcoded parameters for linear time scaling
+
+\lstinputlisting[language=python]{./../rb_lts.py}

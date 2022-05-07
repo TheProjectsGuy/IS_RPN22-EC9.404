@@ -1,0 +1,33 @@
+% !TeX root = main.tex
+
+\section{Theory}
+
+\subsection{Smooth trajectory}
+
+As we have seen, using iterative collision cone (in case of constant) and linear time scaling techniques did not completely fix the discontinuity problem. The following could be tried
+
+\begin{itemize}
+    \item Incorporate the acceleration and velocity constraints on the actuators. This way, even if the controller gives a time scaled velocity, the actuator will clip it towards the limits.
+    
+    However, this could be dangerous and could lead to collisions if the frequency of control loop isn't high enough or the constraints are too restrictive.
+    
+    \item Trajectories can be smoothened by incorporating information of higher derivatives in the time scaling problem.
+    \item The entire problem could be converted into a constrained optimization problem, enforcing dynamic constraints.
+    
+    \item Some proposals include interleaving time-scaling with MPC \cite{tscc-mpc-2}, or using non-linear time scaling \cite{tscc-mpc-1} can also be used. 
+\end{itemize}
+
+\subsection{MPC Parallel}
+
+Trajectories given by simple time-scaling (like what's implemented here) may not be very smooth, whereas trajectories from the MPC will be smooth (because it's from an optimizer using many more constraints on motion).
+
+For the MPC to avoid collisions \emph{specifically} using time-scaling, you could add the time-scaling equations (like equation \ref{eq:cc-cts-rawineq}) as additional solver constraints and incorporate the scaling factor (or scaled velocities) in the system state (unknown variables). Otherwise, the MPC will deviate from the planned trajectory (to avoid the obstacle) whereas time-scaling will stay on the trajectory.
+
+\subsection{Multi-robot}
+
+Time scaling can be extended to multiple robots using an intersection space of multiple inequalities (as presented in \cite{rca-multirobot-rrc}). The solution space can be decomposed into multiple conditions (as done in \ref{eq:cc-cts-solspace-s}, but using different $a_i$ - one for each robot). 
+Linear programming approaches can also solve such problems.
+
+Using velocity obstacle \cite{fiorini98-vel-obs} is also a feasible solution (single robot and multiple obstacle case). The problem will more or less remain the same.
+
+For any two robot case, the velocity vectors have to have sufficient deviation. If they're parallel or antiparallel, then time-scaling will not give a viable solution (it'll lead to collision or both remaining stationary). In such cases, path will have to be altered.

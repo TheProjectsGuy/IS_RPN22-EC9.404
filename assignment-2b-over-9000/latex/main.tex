@@ -1,0 +1,40 @@
+\input{preamble.tex}
+
+\fancypagestyle{fancy_tr_rno}
+{
+   \fancyhf{}
+   \fancyhead[R]{Assignment 2B - Avneesh Mishra - 2021701032}
+   \renewcommand{\headrulewidth}{0pt} % removes horizontal header line
+}
+
+\title{Assignment 2B \\
+    \Large Rime-scaling non-holonomic trajectories \\
+    \small EC4.403 - Robotics: Planning and Navigation
+}
+
+\author{
+    Avneesh Mishra \\
+    \texttt{avneesh.mishra@research.iiit.ac.in}
+    \thanks{M.S. by research - CSE, IIIT Hyderabad, Roll No: 2021701032}
+}
+
+\begin{document}
+    \maketitle
+    \thispagestyle{fancy_tr_rno}
+    \tableofcontents
+    \listoffigures
+    \footnotetext[1]{Videos and results available at \url{https://iiitaphyd-my.sharepoint.com/:f:/g/personal/avneesh_mishra_research_iiit_ac_in/Er_wRqK4hxVLjVdL56rfDxYBKr9PPed1laN48hLgLisf4w}}
+    \pagebreak
+    % Main content
+    \subfile{cts.tex}
+    \pagebreak
+    \subfile{lts.tex}
+    \pagebreak
+    \subfile{theory.tex}
+    \pagebreak
+    % Bibliography
+    \printbibliography
+    % Appendix
+    \appendix
+    \subfile{appendix.tex}
+\end{document}
