@@ -15,6 +15,7 @@ This repository is for personal reference only. Please do not copy code for home
     - [Table of contents](#table-of-contents)
     - [Robotics: Planning and Navigation - EC4-403](#robotics-planning-and-navigation---ec4-403)
     - [Extra material](#extra-material)
+    - [Report](#report)
 
 ## Robotics: Planning and Navigation - EC4-403
 
@@ -29,3 +30,7 @@ The following assignment material was completed under the independent study.
 ## Extra material
 
 Some extra material covered in this course can be found in the [Extras](./Extras/) folder.
+
+## Report
+
+A report outlining topics covered for the independent study is presented in [main.pdf](./Report/latex/main.pdf) (source code to generate it is in the [Report](./Report/) folder).
