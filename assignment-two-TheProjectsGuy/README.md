@@ -8,6 +8,8 @@ Assignment 2A submission by Avneesh Mishra
 **EMail ID**: avneesh.mishra@research.iiit.ac.in <br>
 **Course**: EC4.403 - Robotics: Planning and Navigation
 
+> **Note**: Official submission available at [Robotics-Planning-Navigation/assignment-two-TheProjectsGuy](https://github.com/Robotics-Planning-Navigation/assignment-two-TheProjectsGuy)
+
 ## Table of contents
 
 - [Assignment 2 - RPN - Independent Study](#assignment-2---rpn---independent-study)

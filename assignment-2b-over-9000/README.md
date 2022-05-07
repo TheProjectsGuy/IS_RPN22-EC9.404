@@ -4,6 +4,8 @@
 **Names**: Avneesh Mishra (2021701032), Laksh Nanwani (2021701002) <br>
 **Course**: EC4.403 - Robotics: Planning and Navigation (Independent Study)
 
+> **Note**: Official repository at [Robotics-Planning-Navigation/assignment-2b-over-9000](https://github.com/Robotics-Planning-Navigation/assignment-2b-over-9000)
+
 ## Table of contents
 
 - [Assignment 2B - Over 9000 - RPN](#assignment-2b---over-9000---rpn)

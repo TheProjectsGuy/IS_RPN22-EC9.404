@@ -5,6 +5,8 @@ Assignment 1 of EC4.403 - Spring 2022 - Robotics: Planning and Navigation
 **Team Name**: Over 9000 <br>
 **Team Members**: Laksh Nanwani (2021701002), Avneesh Mishra (2021701032)
 
+> **Note**: Official repository at [Robotics-Planning-Navigation/assignment1-over-9000](https://github.com/Robotics-Planning-Navigation/assignment1-over-9000)
+
 ## Table of contents
 
 - [Assignment 1 - RPN](#assignment-1---rpn)
