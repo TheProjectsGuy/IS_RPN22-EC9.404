@@ -1,0 +1,90 @@
+% !TeX root = main.tex
+\section{Collision Avoidance}
+
+\subsection{Static Obstacle}
+
+If there is a static obstacle, we can do one of the following things
+
+\subsubsection{Break the Bernstein path} 
+
+We can Break the Bernstein/Bezier path into smaller Bernstein basis polynomials and in the segment containing the obstacle, place a waypoint sufficiently far away from the obstacle. We must keep the end trajectory conditions in check, so that we do not give different velocities for the ends. 
+
+\subsubsection{Use an optimization algorithm}
+
+We can optimize for a waypoint using an optimization formulation (similar to the multiple robot formulation in the next subsection).
+
+\subsection{Multiple Non-holonomic Robots}
+
+The main concepts are derived from \cite{klanvcar2010case} (a summary can be found in \cite{skrjanc2007cooperative}).
+
+Consider a Bernstein polynomial with $b = 4$ degree. The polynomial will be given by
+
+\begin{equation}
+    \mathbf{r}(\lambda) = \sum_{i=0}^{b} B_{i, b} (\lambda) \: \mathbf{p}_i \qquad \textup{where} \; B_{i, b} (\lambda) = \: ^{b}\textup{C}_i \: \lambda^i \: (1-\lambda)^{b-i} \;,\; i = 0, 1, \dots, b
+\end{equation}
+
+Where $\mathbf{r} = [x\;\;y]^\top$ is the path. The points $\mathbf{p}_i = [x_i\;\;y_i]^\top$ are the control points.
+The normalized time is given by $\lambda(t) = t/T_{\textup{max}}$.
+
+Considering the first derivative of path (the velocity), we get
+
+\begin{equation}
+    \mathbf{v}(\lambda) = \frac{d \mathbf{r}(\lambda)}{d \lambda} = b \sum_{i = 0}^{b-1} \left ( \mathbf{p}_{i+1} - \mathbf{p}_i \right ) B_{i, b-1} (\lambda)
+\end{equation}
+
+Here $\mathbf{v}(\lambda) = [v_x,\:v_y]^\top$. We also know that $B_{b-1, i}(0) = 0 \:, i = 1, \dots, b-1$ while $B_{b-1, 0}(0) = 1$. We also know that $B_{b-1, i}(1) = 0 \:, i = 0, \dots, b-2$ which $B_{b-1, b-1}(1) = 1$.
+This means that $\mathbf{v}(0) = 4(\mathbf{p}_1 - \mathbf{p}_0)$ and $\mathbf{v}(1) = 4(\mathbf{p}_4 - \mathbf{p}_3)$. 
+These give us the values for $\mathbf{p}_1$ and $\mathbf{p}_3$ readily as follows
+
+\begin{align}
+    \mathbf{p}_1 = \mathbf{p}_0 + \frac{1}{4} \mathbf{v}(0) &&
+    \mathbf{p}_3 = \mathbf{p}_4 - \frac{1}{4} \mathbf{v}(1)
+\end{align}
+
+We already know that $\mathbf{p}_0$ is the starting point and $\mathbf{p}_4$ is the ending point. This means that we have $\mathbf{p}_2$ to optimize for each robot, to avoid a collision.
+
+\paragraph{Multiple robots}
+
+Let us consider a case with multiple robots, each with a trajectory given by $\mathbf{r}_i(\lambda_i) = \left[ x_i(\lambda_i), y_i(\lambda_i) \right]^\top$. Note that each robot can have its own normalized time reference given by $\lambda_i = t/T_{\textup{max}_i}$.
+
+The distance between two robots $i$ and $j$ is given by $r_{ij}(t) = |\mathbf{r}_i(t) - \mathbf{r}_j(t)|$. We must keep this above a certain threshold $d_s$ (minimum distance between two robots).
+
+We would also like to minimize the length of the paths of each robot. The length of path of robot $i$ is given by
+
+\begin{equation}
+    s_i = \int_0^1 \left ( v_{xi}^2 (\lambda_i) + v_{yi}^2 (\lambda_i) \right )^{\sfrac{1}{2}} d\lambda_i
+\end{equation}
+
+Note that the above equation is a variable \emph{only} in $\mathbf{p}_{2i}$ (which is $\mathbf{p}_2$ for robot $i$). We can theoretically minimize this and get $\mathbf{p}_{2i}$ from this itself (keeping collision avoidance and other things aside). But this doesn't guarantee anything other than the shortest path length.
+
+\paragraph{Optimization problem}
+
+We will now consider minimizing the collective path lengths, while adhering to the constraints. This gives the following optimization objective
+
+\begin{align*}
+    &\textup{min} \sum_{i=1}^{n} s_i
+    \\
+    &\textup{subject to} \;\; d_s - r_{ij}(t) \leq 0 \:,\: \; 
+    v_i(t) - v_{\textup{max}_i} \:,\: a_i(t) - a_{\textup{max}_i} \leq 0
+    \;
+    \forall \: i,j,i \neq j \;,\; 0 \leq t \leq \textup{max}_i (T_{\textup{max}_i})
+\end{align*}
+
+This can be converted to the following optimization problem
+
+\begin{align}
+    \begin{split}
+        F =& \sum_{i} s_i + c_1 \sum_{ij} \textup{max}_{ij} (0,\: \sfrac{1}{r_{ij}(t)} - \sfrac{1}{d_s}) + c_2 \sum_i \textup{max}_i (0,\: v_i(t) - v_{\textup{max}_i}) \\
+        & + c_3 \sum_{i} \textup{max}_i (0,\: a_i(t) - a_{\textup{min}_i})
+    \end{split} 
+    \nonumber \\
+    &\textup{min} \qquad F
+    \nonumber \\
+    &\textup{subjected to} \quad \mathbf{P}_2,\: \mathbf{T}_{\textup{max}}
+    \nonumber \\
+    & i, j, i \neq j,\;\; 0 \leq t \leq \textup{max}_i (T_{\textup{max}_i})
+\end{align}
+
+The values $c_1$, $c_2$, and $c_3$ are scalar constants in the above equation. The $c_1$ term ensures no collision, the $c_2$ term ensures maximum possible velocity, and the $c_3$ term ensures maximum acceleration. Due to the latter two, the penalty function $F$ is also subjected to the time for each robot.
+
+The above equations can probably be solved through an optimizer like \href{https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.minimize.html}{scipy.optimize.minimize}.

@@ -1,0 +1,13 @@
+# Ignore checkpoints
+/.ipynb_checkpoints/
+
+# Ignore test files
+test*
+test/
+
+# Ignore VSCode
+.vscode/
+
+# Ignore data generated
+data/
+*.avi

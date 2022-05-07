@@ -1,0 +1,61 @@
+% !TeX root = main.tex
+\section{Bernstein Polynomials for Multi-rotor UAVs}
+
+The theory discussed in section \ref{sec:theory-nhtraj-bernstein} only applied for a differential drive robot (which has different, non-holonomic constraints). 
+
+For a multi-rotor robot, additional variables are needed. The variables will now be $x, y, z$ for the UAV's position in 3D Euclidean space, $\phi, \theta, \psi$ for the roll, pitch, and yaw orientation in 3D space.
+
+It is understood that the UAV cannot be at any orientation and fixed in space. Imagine the UAV pitching forward and not accelerating forward (not possible, the inclined thrust vector will accelerate it forward). The mathematical model for a UAV quadcopter is described below
+
+\subsection{Quadcopter Motion Model}
+
+The rotation matrix relating the global and vehicle inertial frame is given by
+
+\begin{equation*} 
+    \mathbf{R} = \begin{bmatrix}
+        c\theta\,c\psi && c\theta\,s\psi && -s\theta \\
+        s\phi\,s\theta\,c\psi-c\phi\,s\psi && s\phi\,s\theta\,s\psi + c\phi\,c\psi && s\phi c\theta \\
+        c\phi\,s\theta\,c\psi && c\phi\,s\theta\,s\psi-s\phi\,c\psi && c\phi\,c\theta
+    \end{bmatrix}
+\end{equation*}
+
+The vehicle's position, linear and angular velocity are represented by the following vectors
+
+\begin{align*}
+    \xi = [x\;\;y\;\;z]^\top && V = [u\;\;v\;\;w]^\top && \omega = [p\;\;q\;\;r]^\top
+\end{align*}
+
+The equations of motion are given by the following
+
+\begin{align*}
+    \dot{\xi} &= \mathbf{R}^{-1} V \\
+    F &= m \dot{V} + \omega \times mV \\
+    \begin{bmatrix}
+        \dot{\phi} \\ \dot{\theta} \\ \dot{\psi}
+    \end{bmatrix} &= \mathbf{E}^{-1} \begin{bmatrix}
+        p \\ q \\ r
+    \end{bmatrix} \\
+    \mathbf{R} \begin{bmatrix}
+        0 \\ 0 \\ mg
+    \end{bmatrix} - \begin{bmatrix}
+        0 \\ 0 \\ T
+    \end{bmatrix} = \begin{bmatrix}
+        F_{XB} \\ F_{YB} \\ F_{ZB}
+    \end{bmatrix} &= m \begin{bmatrix}
+        \dot{u} + qw - rv \\
+        \dot{v} + ru - pw \\
+        \dot{w} + pv - qu
+    \end{bmatrix}
+\end{align*}
+
+These equations were taken from \cite{vilez2015trajectory}.
+
+\subsection{Changes proposed}
+
+Based on the model above, the following changes will be needed
+
+\begin{itemize}
+    \item The motion constraints mentioned in the end of the last section must be implemented (like in equation \ref{eq:diffdrive-non-holo-constraint}).
+    \item Parameterized representation for UAV model will be needed.
+    \item We can probably have a crude path planner (like RRT in configuration space) and merge bezier splines using a library like \href{https://bezier.readthedocs.io/en/stable/index.html}{PyPI: bezier}.
+\end{itemize}

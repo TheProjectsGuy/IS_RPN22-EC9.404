@@ -1,0 +1,17 @@
+% !TeX root = main.tex
+\section{Accommodating More Waypoints}
+
+We could accommodate more waypoints through the following methods
+
+\begin{enumerate}
+    \item Increase the value of $n$ ($n$-th degree Bernstein basis). This will allow us to introduce more waypoints while keeping the system \emph{critically constrained}.
+    \item We could directly add the waypoints, with the same $n$. This will make the system \emph{over-constrained}.
+\end{enumerate}
+
+\subsection{Piece-wise Bernstein Polynomials}
+
+However, we usually have a global path planner (like RRT) running at lower frequencies (say $10$ Hz). That path planner gives many points (consider them to be waypoints, with the exception of start and goal).
+
+At a different frequency, and within a small neighborhood, we need to travel from one point to another (on this proposed solution by the global path planner) through waypoints. This is done through a piece-wise fitting of Bernstein Polynomials while keeping the end constraints in check (for position and velocity).
+
+Through this method, we can theoretically accommodate all the points proposed by the global path planner into a big piece-wise Bernstein polynomial.
