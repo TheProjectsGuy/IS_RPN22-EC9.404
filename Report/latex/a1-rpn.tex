@@ -1,5 +1,4 @@
 % !TeX root = main.tex
-\section{Robotics Planning and Navigation}
 
 \subsection{Assignment 1: Motion planning using RRT}
 
@@ -19,11 +18,11 @@ The following implementations were done
 \begin{itemize}
     \item Generating a path assuming that a holonomic robot is going to travel it (do not store $v, \omega$), and then make a non-holonomic robot travel the path. The robot will either go straight or turn at nodes.
     
-    This does not exploit the non-holonomic structure of the vehicle and may not be practical for larger robots. See figure \ref{fig:rrt-holo}.
+    This does not exploit the non-holonomic structure of the vehicle and may not be practical for larger robots. See figure \ref{fig:rrt-holo} for results using this method.
 
     \item Exploiting the non-holonomic structure of the vehicle when adding nodes. This has the advantage of creating paths and routes that can inherently be traversed by the vehicle.
     
-    This involves either directly sampling in the vehicle's control space or running inverse kinematics on the points sampled in the state space (free map). See figure \ref{fig:rrt-nonholo}.
+    This involves either directly sampling in the vehicle's control space or running inverse kinematics on the points sampled in the state space (free map). See figure \ref{fig:rrt-nonholo} for results using this method.
 \end{itemize}
 
 \begin{figure}[ht]
@@ -65,7 +64,3 @@ The following implementations were done
     \small
         The sampling, path generation and traveling is of a differential drive robot (non-holonomic robot).
 \end{figure}
-
-\subsection{Assignment 2: Bernstein Polynomials}
-
-\subsection{Assignment 3: Time scaling}
