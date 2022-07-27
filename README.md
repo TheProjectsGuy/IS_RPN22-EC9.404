@@ -1,5 +1,9 @@
 # Independent Study - Spring 2022 - EC9.414
 
+[Written Notes](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/avneesh_mishra_research_iiit_ac_in/EtmxqFo4QoNPiAqxqmIHa5MBkRyrjJUoxS62w_q5fgSXFQ?e=uByhKt)
+
+---
+
 This repository contains all my independent study material (taken in Spring 2022)
 
 ## License
